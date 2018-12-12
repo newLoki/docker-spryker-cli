@@ -4,19 +4,36 @@ RUN apk add --update \
 		autoconf \
 		g++ \
 		libtool \
-		make \
-		libxml2
+		make
 
-RUN docker-php-ext-install bcmath \
-    && docker-php-ext-install soap \
-    && docker-php-ext-install gd \
-    && docker-php-ext-install soap \
-    && docker-php-ext-install gmp \
-    && docker-php-ext-install intl \
-    && docker-php-ext-install zip \
+RUN docker-php-ext-install bcmath
+
+RUN apk add --update \
+    		autoconf \
+    		g++ \
+    		libtool \
+    		make \
+    		libxml2 \
+    		libxml2-dev \
+    && docker-php-ext-install soap
+
+RUN apk add --update \
+        libpng \
+		libpng-dev \
+    && docker-php-ext-install gd
+
+RUN apk add --update \
+        gmp \
+		gmp-dev \
+		&& docker-php-ext-install gmp
+RUN apk add --update \
+        bzip2 \
+		bzip2-dev \
     && docker-php-ext-install bz2
 
-RUN docker-php-ext-install mbstring \
+RUN docker-php-ext-install zip
+
+RUN docker-php-ext-install mbstring
 
 RUN apk add --update icu-dev \
 	&& docker-php-ext-install intl \
@@ -31,7 +48,7 @@ RUN apk add --update postgresql-dev \
 
 
     # install redis from source
-RUN curl -L -o /tmp/redis.tar.gz https://github.com/phpredis/phpredis/archive/$REDIS_VERSION.tar.gz \
+RUN curl -L -o /tmp/redis.tar.gz https://github.com/phpredis/phpredis/archive/4.2.0.tar.gz \
         && tar xfz /tmp/redis.tar.gz \
         && rm -r /tmp/redis.tar.gz \
         && mkdir -p /usr/src/php/ext \
@@ -64,6 +81,10 @@ RUN apk del \
 		libmagic \
 		libstdc++ \
 		libtool \
+		libxml2 \
+		libxml2-dev \
+        libpng \
+        libpng-dev \
 		m4 \
 		make \
 		mpc1 \
