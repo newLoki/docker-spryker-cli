@@ -57,11 +57,10 @@ RUN curl -L -o /tmp/redis.tar.gz https://github.com/phpredis/phpredis/archive/4.
 
 
 
+#RUN apk --help --verbose
 RUN apk del \
 		autoconf \
-		bash \
 		binutils \
-		binutils-libs \
 		db \
 		expat \
 		file \
@@ -96,6 +95,5 @@ RUN apk del \
 		python \
 		re2c \
 		readline \
-		sqlite-libs \
 		zlib-dev \
 	&& rm -rf /tmp/* /var/cache/apk/*
